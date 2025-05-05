@@ -1,5 +1,47 @@
+table {
+    background-color: #d7e3ff;
+}
+
 .process-list {
     width: 100%;
     height: 100%;
-    background-color: red;
+    background-color: #d7e3ff;
+    border-left: 1px black solid;
+    box-sizing: border-box;
+
+    &__processes {
+        width: 100%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+
+        &-title {
+            overflow: hidden;
+            text-align: center;
+            height: 75px;
+        }
+
+        &-items {
+            width: 100%;
+            height: 100%;
+            overflow-x: auto;
+            box-sizing: border-box;
+        }
+
+        &-item {
+            display: flex;
+            background-color: white;
+            border-radius: 5px;
+            align-items: center;
+            width: 80%;
+            height: 25px;
+        }
+    }
+
+    &__config {
+        border-top: 1px black solid;
+        box-sizing: border-box;
+        width: 100%;
+        height: 20%;
+    }
 }

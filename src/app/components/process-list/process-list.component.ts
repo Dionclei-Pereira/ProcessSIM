@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { IProcess } from '../../interfaces/process.interface';
+import { ProcessStatus } from '../../enums/process-status.enum';
 
 @Component({
   selector: 'app-process-list',
@@ -8,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class ProcessListComponent {
 
+  dataSource: IProcess[] = []
+
+  displayedColumns: string[] = ['icon', 'pid', 'status', 'remaining'];
 }
