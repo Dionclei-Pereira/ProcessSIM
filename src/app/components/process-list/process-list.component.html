@@ -8,7 +8,9 @@
 
                 <ng-container matColumnDef="icon">
                   <th mat-header-cell *matHeaderCellDef> Icon </th>
-                  <td mat-cell *matCellDef="let element"> {{element.icon}} </td>
+                  <td mat-cell *matCellDef="let element">
+                    <app-process [color]="element.color"></app-process>
+                  </td>
                 </ng-container>
               
                 <ng-container matColumnDef="pid">

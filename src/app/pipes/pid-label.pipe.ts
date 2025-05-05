@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ProcessStatus } from '../enums/process-status.enum';
 
 @Pipe({
   name: 'pidLabel',
