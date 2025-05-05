@@ -8,6 +8,6 @@
         </div>
     </div>
     <div class="right-div">
-        <app-process-list></app-process-list>
+        <app-process-list [dataSource]="dataSource.data" (processEmitter)="onCreateProcess($event)"></app-process-list>
     </div>
 </div>

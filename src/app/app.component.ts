@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { IProcess } from './interfaces/process.interface';
+import { ProcessStatus } from './enums/process-status.enum';
+import { MatTableDataSource } from '@angular/material/table';
+import { ProcessType } from './enums/process-type.enum';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +12,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ProcessSIM';
+
+  dataSource = new MatTableDataSource<IProcess>([]);
+
+  onCreateProcess(process: IProcess) {
+    const data = this.dataSource.data;
+
+    process.status = ProcessStatus.READY;
+
+    data.push(process);
+    this.dataSource.data = [...data];
+  }
 }

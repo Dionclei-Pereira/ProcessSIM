@@ -5,6 +5,7 @@ import { OsConfigComponent } from './os-config/os-config.component';
 import { AngularMaterialModule } from "../angular-material/angular-material.module";
 import { PipesModule } from "../pipes/pipes.module";
 import { ProcessComponent } from './process/process.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { ProcessComponent } from './process/process.component';
   ],
     imports: [
       AngularMaterialModule,
+      FormsModule,
       PipesModule
     ],
     exports: [
