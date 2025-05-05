@@ -29,7 +29,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="item" [class.selected]="row === selected" (click)="onClick(row)"></tr>
               </table>
         </div>
     </div>

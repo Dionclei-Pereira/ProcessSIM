@@ -18,7 +18,13 @@ export class ProcessListComponent {
     {color: 'yellow', pid: 4, status: ProcessStatus.READY, remaining: 5},
     {color: 'aqua', pid: 3, status: ProcessStatus.READY, remaining: 5},
     {color: 'black', pid: 100, status: ProcessStatus.READY, remaining: 5}
-  ]
+  ];
 
   displayedColumns: string[] = ['icon', 'pid', 'status', 'remaining'];
+
+  selected: IProcess | null = null;
+
+  onClick(process: IProcess) {
+    this.selected = process;
+  }
 }

@@ -2,6 +2,14 @@ table {
     background-color: #d7e3ff;
 }
 
+.selected {
+    background-color: aliceblue;
+}
+
+.item {
+    cursor: pointer;
+}
+
 .process-list {
     width: 100%;
     height: 100%;
@@ -26,15 +34,6 @@ table {
             height: 100%;
             overflow-x: auto;
             box-sizing: border-box;
-        }
-
-        &-item {
-            display: flex;
-            background-color: white;
-            border-radius: 5px;
-            align-items: center;
-            width: 80%;
-            height: 25px;
         }
     }
 
