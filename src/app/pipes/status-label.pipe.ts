@@ -7,7 +7,7 @@ import { ProcessStatus } from '../enums/process-status.enum';
 })
 export class StatusLabelPipe implements PipeTransform {
 
-  transform(value: ProcessStatus): unknown {
+  transform(value: ProcessStatus): string {
     return ProcessStatus[value];
   }
 

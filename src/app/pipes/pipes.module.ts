@@ -1,12 +1,15 @@
 import { NgModule } from "@angular/core";
 import { StatusLabelPipe } from "./status-label.pipe";
+import { PidLabelPipe } from "./pid-label.pipe";
 
 @NgModule({
     declarations: [
-        StatusLabelPipe
+        StatusLabelPipe,
+        PidLabelPipe
     ],
     exports: [
-        StatusLabelPipe
+        StatusLabelPipe,
+        PidLabelPipe
     ]
 })
 export class PipesModule {
