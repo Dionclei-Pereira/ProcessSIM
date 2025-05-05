@@ -15,7 +15,13 @@ export class ProcessListComponent {
   dataSource: IProcess[] = []
 
   @Output()
-  processEmitter = new EventEmitter<IProcess>();
+  create = new EventEmitter<IProcess>();
+
+  @Output()
+  delete = new EventEmitter<IProcess>();
+
+  @Output()
+  suspend = new EventEmitter<IProcess>();
 
   displayedColumns: string[] = ['icon', 'pid', 'status', 'remaining'];
 
@@ -23,25 +29,34 @@ export class ProcessListComponent {
 
   type: ProcessType | undefined;
   priority: number | undefined;
-  cycles: number | undefined;
+  cycles: number = 1;
 
   onClick(process: IProcess) {
     this.selected = process;
   }
 
+  onDelete() {
+    this.delete.emit(this.selected as IProcess);
+  }
+
+  onSuspend() {
+    this.suspend.emit(this.selected as IProcess);
+  }
+
   onCreate() {
     const PROCESS_NOT_VALID = (this.type === undefined || this.cycles === undefined || this.priority === undefined);
     if (PROCESS_NOT_VALID) return;
-
+    
     let process: IProcess = {
       color: this.generateRandomColor(),
       pid: this.generateRandomPID(),
-      remaining: this.cycles as number,
+      remaining: this.cycles,
       status: ProcessStatus.NEW,
-      type: this.type as number
+      type: this.type as number,
+      priority: this.priority as number
     }
-    
-    this.processEmitter.emit(process);
+
+    this.create.emit(process);
   }
 
   private generateRandomPID(): number {

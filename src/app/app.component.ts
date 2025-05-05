@@ -23,4 +23,24 @@ export class AppComponent {
     data.push(process);
     this.dataSource.data = [...data];
   }
+
+  onDeleteProcess(process: IProcess) {
+    const data = this.dataSource.data;
+
+    let updated = data.filter(p => p.pid !== process.pid);
+
+    this.dataSource.data = [...updated];
+  }
+
+
+  onSuspendProcess(process: IProcess) {
+    const data = this.dataSource.data;
+    
+    let updatedStatus = process.status === 5 ? 1 : 5;
+    process.status = updatedStatus;
+
+    data.map(p => p.pid === process.pid ? process : p)
+
+    this.dataSource.data = [...data];
+  }
 }

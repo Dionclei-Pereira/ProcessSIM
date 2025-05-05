@@ -7,4 +7,5 @@ export interface IProcess{
     status: ProcessStatus
     remaining: number
     type: ProcessType
+    priority: number
 }

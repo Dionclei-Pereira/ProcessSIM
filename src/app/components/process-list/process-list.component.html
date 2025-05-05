@@ -35,8 +35,8 @@
 
                 <h4>Type</h4>
                 <mat-radio-group [(ngModel)]="type" aria-label="Type">
-                  <mat-radio-button value="1">CPU-Bound</mat-radio-button>
-                  <mat-radio-button value="2">IO-Bound</mat-radio-button>
+                  <mat-radio-button value="0">CPU-Bound</mat-radio-button>
+                  <mat-radio-button value="1">IO-Bound</mat-radio-button>
                 </mat-radio-group>
 
                 <h4>Priority</h4>
@@ -46,12 +46,10 @@
                   <mat-radio-button value="2">2</mat-radio-button>
                 </mat-radio-group>
 
-                <h4>Cycles</h4>
-                <mat-radio-group [(ngModel)]="cycles" aria-label="Type">
-                  <mat-radio-button value="5">5</mat-radio-button>
-                  <mat-radio-button value="5">15</mat-radio-button>
-                  <mat-radio-button value="25">25</mat-radio-button>
-                </mat-radio-group>
+                <h4>Cycles: {{ cycles }}</h4>
+                <mat-slider min="1" max="25" step="1" showTickMarks>
+                  <input matSliderThumb [(ngModel)]="cycles">
+                </mat-slider>
                 <button mat-flat-button (click)="onCreate()">Create</button>
               </div>
             </mat-tab>
@@ -59,6 +57,23 @@
         </div>
     </div>
     <div class="process-list__config">
-
-    </div>
+      @if (selected !== null) {
+        <div class="process-list__config--top-div">
+          <p>Type: {{ selected.type | typeLabel }}</p>
+          <p>Priority: {{ selected.priority }}</p>
+        </div>
+        <div class="process-list__config--bottom-div">
+          <div class="process-list__config--btn" (click)="onSuspend()">
+            @if (selected.status === 5) {
+              Resume
+            }
+            @else {
+              Suspend
+            }
+          </div>
+          <div class="process-list__config--btn" (click)="onDelete()">
+            Delete
+          </div>
+        </div>
+      }
 </div>
