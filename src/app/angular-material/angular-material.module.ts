@@ -6,7 +6,6 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSliderModule} from '@angular/material/slider';
 
-
 @NgModule({
     imports: [
         MatTableModule,

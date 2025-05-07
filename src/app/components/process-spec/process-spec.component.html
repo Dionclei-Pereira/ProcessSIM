@@ -1,2 +1,36 @@
 <div class="process-spec">
+    <div class="process-spec__cpu-container">
+        <h3>CPU</h3>
+        <div>
+            @if (executing !== undefined) {
+                <app-process [color]="executing.color"></app-process>
+            }
+        </div>
+    </div>
+    <div class="process-spec__list">
+        <div class="process-spec__list-items">
+            <div class="process-spec__list-items-title">
+                0
+            </div>
+            @for (item of queues[0]; track item) {
+                <app-process [color]="item.color"></app-process>
+            }
+        </div >
+        <div class="process-spec__list-items">
+            <div class="process-spec__list-items-title">
+                1
+            </div>
+            @for (item of queues[1]; track item) {
+                <app-process [color]="item.color"></app-process>
+            }
+        </div>
+        <div class="process-spec__list-items">
+            <div class="process-spec__list-items-title">
+                2
+            </div>
+            @for (item of queues[2]; track item) {
+                <app-process [color]="item.color"></app-process>
+            }
+        </div>
+    </div>
 </div>

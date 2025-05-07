@@ -8,4 +8,5 @@ export interface IProcess{
     remaining: number
     type: ProcessType
     priority: number
+    instant: number
 }

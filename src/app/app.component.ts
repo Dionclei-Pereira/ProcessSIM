@@ -43,4 +43,16 @@ export class AppComponent {
 
     this.dataSource.data = [...data];
   }
+
+  onUpdateProcess(process: IProcess) {
+    let data = this.dataSource.data;
+
+    if (process.status === ProcessStatus.TERMINATED) {
+      data = data.filter(p => p.pid !== process.pid);
+    } else {
+      data.map(p => p.pid === process.pid ? process : p)
+    }
+
+    this.dataSource.data = [...data];
+  }
 }

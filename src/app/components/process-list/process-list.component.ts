@@ -53,7 +53,8 @@ export class ProcessListComponent {
       remaining: this.cycles,
       status: ProcessStatus.NEW,
       type: this.type as number,
-      priority: this.priority as number
+      priority: this.priority as number,
+      instant: Date.now()
     }
 
     this.create.emit(process);
