@@ -27,7 +27,7 @@ export class ProcessSpecComponent implements OnInit {
   paused: boolean = false;
   cpuInterval: number = 1500;
   ioInterval: number = 1500;
-  algorithm: Algorithm = Algorithm.ROUND_ROBIN;
+  algorithm: Algorithm = Algorithm.SJF;
 
   executing: IProcess | undefined;
 
@@ -110,8 +110,14 @@ export class ProcessSpecComponent implements OnInit {
   private updateQueues() {
     let filteredList = this.processList.filter(p => p.status === ProcessStatus.READY);
 
-    this.queues[2] = filteredList.filter(p => p.priority == 2).sort((a, b) => a.instant - b.instant);
-    this.queues[1] = filteredList.filter(p => p.priority == 1).sort((a, b) => a.instant - b.instant);
-    this.queues[0] = filteredList.filter(p => p.priority == 0).sort((a, b) => a.instant - b.instant);
+    this.queues[2] = this.sortQueue(filteredList.filter(p => p.priority == 2));
+    this.queues[1] = this.sortQueue(filteredList.filter(p => p.priority == 1));
+    this.queues[0] = this.sortQueue(filteredList.filter(p => p.priority == 0));
+  }
+
+  private sortQueue(queue: IProcess[]): IProcess[] {
+    return this.algorithm === Algorithm.SJF ? 
+      queue.sort((a, b) => a.remaining - b.remaining) :
+      queue.sort((a, b) => a.instant - b.instant)
   }
 }
