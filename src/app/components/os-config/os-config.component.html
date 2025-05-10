@@ -1,3 +1,14 @@
 <div class="os-config">
-    
+    <div class="os-config__item">
+        CPU-Interval
+        <mat-slider min="250" max="2000" showTickMarks>
+            <input matSliderThumb [ngModel]="cpuInterval" (ngModelChange)="cpuChanged($event)">
+        </mat-slider>
+    </div>
+    <div class="os-config__item">
+        IO-Interval
+        <mat-slider min="500" max="2000" showTickMarks>
+            <input matSliderThumb [ngModel]="ioInterval" (ngModelChange)="ioChanged($event)">
+        </mat-slider>
+    </div>
 </div>

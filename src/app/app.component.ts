@@ -15,6 +15,17 @@ export class AppComponent {
 
   dataSource = new MatTableDataSource<IProcess>([]);
 
+  cpuInterval: number = 750;
+  ioInterval: number = 1500;
+
+  onCpuChange(value: number) {
+    this.cpuInterval = value;
+  }
+
+  onIoChange(value: number) {
+    this.ioInterval = value;
+  }
+
   onCreateProcess(process: IProcess) {
     const data = this.dataSource.data;
 

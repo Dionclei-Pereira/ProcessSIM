@@ -27,71 +27,81 @@ export class ProcessSpecComponent implements OnInit {
   waitingProcesses: IProcess[] = [];
 
   paused: boolean = false;
-  cpuInterval: number = 1500;
-  ioInterval: number = 5000;
+  
+  @Input({ required: true })
+  cpuInterval: number = 0;
+
+  @Input({ required: true })
+  ioInterval: number = 0;
+
   algorithm: Algorithm = Algorithm.FIFO;
 
   executing: IProcess | undefined;
   waiting: IProcess | undefined;
 
   ngOnInit(): void {
+  this.startIOCycle();
+  this.startCPUCycle();
+  }
 
-    //IO
-    setInterval(() => {
-      if (this.paused) return;
+  startIOCycle(): void {
+    const loop = () => {
+      console.log(this.ioInterval);
+      console.log(this.cpuInterval);
+      if (!this.paused) {
+        if (this.waiting) {
+          this.waiting.remaining--;
 
-      if (this.waiting) {
-        this.waiting.remaining--;
-
-        if (this.waiting.remaining <= 0) {
-          this.waiting.status = ProcessStatus.TERMINATED;
-          this.removeProcess(this.waiting);
-          this.processUpdated.emit(this.waiting);
-          this.waiting = undefined;
-          return;
+          if (this.waiting.remaining <= 0) {
+            this.waiting.status = ProcessStatus.TERMINATED;
+            this.removeProcess(this.waiting);
+            this.processUpdated.emit(this.waiting);
+            this.waiting = undefined;
+          } else {
+            this.waiting.status = ProcessStatus.READY;
+            this.processUpdated.emit(this.waiting);
+            this.updateQueues();
+            this.waiting = undefined;
+          }
+        } else {
+          this.updateQueues();
+          const process = this.getNextWaiting();
+          this.waiting = process ?? undefined;
         }
-
-        this.waiting.status = ProcessStatus.READY;
-        this.processUpdated.emit(this.waiting);
-        this.updateQueues();
-        this.waiting = undefined;
-        return;
       }
 
-      this.updateQueues();
-      const process = this.getNextWaiting();
+      setTimeout(loop, this.ioInterval);
+    };
 
-      if (process) {
-        this.waiting = process;
-      } else {
-        this.waiting = undefined;
-      }
-      
-    }, this.ioInterval);
+    loop();
+  }
 
-    //CPU
-    setInterval(() => {
-      if (this.paused) return;
-  
-      if (this.executing) {
-        this.updateProcess(this.algorithm);
-        return;
+  startCPUCycle(): void {
+    const loop = () => {
+          console.log("Executei")
+      if (!this.paused) {
+        if (this.executing) {
+          this.updateProcess(this.algorithm);
+        } else {
+          this.updateQueues();
+          const process = this.getNext();
+
+          if (process) {
+            process.status = ProcessStatus.RUNNING;
+            this.executing = process;
+            this.processUpdated.emit(process);
+          } else {
+            this.executing = undefined;
+          }
+
+          this.updateQueues();
+        }
       }
-  
-      this.updateQueues();
-  
-      const process = this.getNext();
-  
-      if (process) {
-        process.status = ProcessStatus.RUNNING;
-        this.executing = process;
-        this.processUpdated.emit(process);
-      } else {
-        this.executing = undefined;
-      }
-  
-      this.updateQueues();
-    }, this.cpuInterval);
+
+      setTimeout(loop, this.cpuInterval);
+  };
+
+  loop();
   }
 
   private removeProcess(process: IProcess) {

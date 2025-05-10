@@ -1,10 +1,17 @@
 <div class="container">
     <div class="left-container">
         <div class="top-div">
-            <app-process-spec [processList]="dataSource.data" (processUpdated)="onUpdateProcess($event)"></app-process-spec>
+            <app-process-spec 
+            [processList]="dataSource.data" 
+            (processUpdated)="onUpdateProcess($event)"
+            [cpuInterval]="cpuInterval"
+            [ioInterval]="ioInterval"></app-process-spec>
         </div>
         <div class="bottom-div">
-            <app-os-config></app-os-config>
+            <app-os-config
+            (cpuChange)="onCpuChange($event)"
+            (ioChange)="onIoChange($event)"
+            ></app-os-config>
         </div>
     </div>
     <div class="right-div">
