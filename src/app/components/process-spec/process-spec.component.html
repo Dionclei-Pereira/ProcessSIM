@@ -33,4 +33,16 @@
             }
         </div>
     </div>
+    <div class="process-spec__waiting">
+        <div class="process-spec__waiting-current">
+            @if (waiting) {
+                <app-process [color]="waiting.color"></app-process>
+            }
+        </div>
+        <div class="process-spec__waiting-list">
+            @for (item of waitingProcesses; track item) {
+                <app-process [color]="item.color"></app-process>
+            }
+        </div>
+    </div>
 </div>

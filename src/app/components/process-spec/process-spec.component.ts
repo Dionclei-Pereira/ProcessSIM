@@ -24,17 +24,48 @@ export class ProcessSpecComponent implements OnInit {
     2: []
   };
 
+  waitingProcesses: IProcess[] = [];
+
   paused: boolean = false;
   cpuInterval: number = 1500;
-  ioInterval: number = 1500;
-  algorithm: Algorithm = Algorithm.SJF;
+  ioInterval: number = 5000;
+  algorithm: Algorithm = Algorithm.FIFO;
 
   executing: IProcess | undefined;
+  waiting: IProcess | undefined;
 
   ngOnInit(): void {
 
     //IO
     setInterval(() => {
+      if (this.paused) return;
+
+      if (this.waiting) {
+        this.waiting.remaining--;
+
+        if (this.waiting.remaining <= 0) {
+          this.waiting.status = ProcessStatus.TERMINATED;
+          this.removeProcess(this.waiting);
+          this.processUpdated.emit(this.waiting);
+          this.waiting = undefined;
+          return;
+        }
+
+        this.waiting.status = ProcessStatus.READY;
+        this.processUpdated.emit(this.waiting);
+        this.updateQueues();
+        this.waiting = undefined;
+        return;
+      }
+
+      this.updateQueues();
+      const process = this.getNextWaiting();
+
+      if (process) {
+        this.waiting = process;
+      } else {
+        this.waiting = undefined;
+      }
       
     }, this.ioInterval);
 
@@ -96,8 +127,11 @@ export class ProcessSpecComponent implements OnInit {
         this.executing = undefined;
       }
     } else {
+      this.executing = undefined;
       process.status = ProcessStatus.WAITING;
+      process.instant = Date.now();
       this.processUpdated.emit(process);
+      this.updateQueues();
     }
   }
 
@@ -107,8 +141,13 @@ export class ProcessSpecComponent implements OnInit {
         ?? this.queues[0].shift();
   }
 
+  private getNextWaiting(): IProcess | undefined {
+    return this.waitingProcesses.shift();
+  }
+
   private updateQueues() {
     let filteredList = this.processList.filter(p => p.status === ProcessStatus.READY);
+    this.waitingProcesses = this.processList.filter(p => p.status === ProcessStatus.WAITING && p !== this.waiting).sort((a, b) => a.instant - b.instant);
 
     this.queues[2] = this.sortQueue(filteredList.filter(p => p.priority == 2));
     this.queues[1] = this.sortQueue(filteredList.filter(p => p.priority == 1));
