@@ -5,12 +5,15 @@
             [processList]="dataSource.data" 
             (processUpdated)="onUpdateProcess($event)"
             [cpuInterval]="cpuInterval"
-            [ioInterval]="ioInterval"></app-process-spec>
+            [ioInterval]="ioInterval"
+            [algorithm]="algorithm"
+            ></app-process-spec>
         </div>
         <div class="bottom-div">
             <app-os-config
             (cpuChange)="onCpuChange($event)"
             (ioChange)="onIoChange($event)"
+            (algChange)="onAlgChange($event)"
             ></app-os-config>
         </div>
     </div>

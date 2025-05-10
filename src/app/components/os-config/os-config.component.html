@@ -11,4 +11,15 @@
             <input matSliderThumb [ngModel]="ioInterval" (ngModelChange)="ioChanged($event)">
         </mat-slider>
     </div>
+
+    <div class="os-config__item">
+        <mat-form-field>
+            <mat-label>Algorithm</mat-label>
+            <mat-select [(ngModel)]="algorithm" (ngModelChange)="algChanged($event)">
+                <mat-option [value]="1">FIFO</mat-option>
+                <mat-option [value]="2">SJF</mat-option>
+                <mat-option [value]="0">ROUND ROBIN</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 </div>

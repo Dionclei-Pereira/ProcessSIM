@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IProcess } from './interfaces/process.interface';
 import { ProcessStatus } from './enums/process-status.enum';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProcessType } from './enums/process-type.enum';
+import { Algorithm } from './enums/os.algorithm.enum';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ export class AppComponent {
 
   cpuInterval: number = 750;
   ioInterval: number = 1500;
+  algorithm: Algorithm = Algorithm.FIFO;
 
   onCpuChange(value: number) {
     this.cpuInterval = value;
@@ -24,6 +25,10 @@ export class AppComponent {
 
   onIoChange(value: number) {
     this.ioInterval = value;
+  }
+
+  onAlgChange(algorithm: number) {
+    this.algorithm = algorithm;
   }
 
   onCreateProcess(process: IProcess) {

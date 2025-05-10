@@ -34,6 +34,7 @@ export class ProcessSpecComponent implements OnInit {
   @Input({ required: true })
   ioInterval: number = 0;
 
+  @Input({ required: true })
   algorithm: Algorithm = Algorithm.FIFO;
 
   executing: IProcess | undefined;
@@ -46,8 +47,6 @@ export class ProcessSpecComponent implements OnInit {
 
   startIOCycle(): void {
     const loop = () => {
-      console.log(this.ioInterval);
-      console.log(this.cpuInterval);
       if (!this.paused) {
         if (this.waiting) {
           this.waiting.remaining--;
@@ -78,7 +77,6 @@ export class ProcessSpecComponent implements OnInit {
 
   startCPUCycle(): void {
     const loop = () => {
-          console.log("Executei")
       if (!this.paused) {
         if (this.executing) {
           this.updateProcess(this.algorithm);
@@ -119,7 +117,7 @@ export class ProcessSpecComponent implements OnInit {
       process.instant = Date.now();
       process.remaining--;
   
-      if (algorithm === Algorithm.ROUND_ROBIN) {
+      if (algorithm == Algorithm.ROUND_ROBIN) {
         process.status = ProcessStatus.READY;
       }
       
@@ -133,7 +131,7 @@ export class ProcessSpecComponent implements OnInit {
   
       this.updateQueues();
   
-      if (algorithm === Algorithm.ROUND_ROBIN) {
+      if (algorithm == Algorithm.ROUND_ROBIN) {
         this.executing = undefined;
       }
     } else {
@@ -165,7 +163,7 @@ export class ProcessSpecComponent implements OnInit {
   }
 
   private sortQueue(queue: IProcess[]): IProcess[] {
-    return this.algorithm === Algorithm.SJF ? 
+    return this.algorithm == Algorithm.SJF ? 
       queue.sort((a, b) => a.remaining - b.remaining) :
       queue.sort((a, b) => a.instant - b.instant)
   }
