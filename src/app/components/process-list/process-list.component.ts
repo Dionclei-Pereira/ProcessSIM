@@ -36,11 +36,11 @@ export class ProcessListComponent {
   }
 
   onDelete() {
-    this.delete.emit(this.selected as IProcess);
+    if (this.selected?.status === ProcessStatus.READY) this.delete.emit(this.selected as IProcess);;
   }
 
   onSuspend() {
-    this.suspend.emit(this.selected as IProcess);
+    if (this.selected?.status === ProcessStatus.READY || this.selected?.status === ProcessStatus.SUSPENDED) this.suspend.emit(this.selected as IProcess);;
   }
 
   onCreate() {
