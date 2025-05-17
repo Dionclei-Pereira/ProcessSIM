@@ -1,6 +1,6 @@
 <div class="process-spec">
     <div class="process-spec__cpu-container">
-        <h3>CPU</h3>
+        <h3>🖥️ CPU</h3>
         <div>
             @if (executing !== undefined) {
                 <app-process [color]="executing.color"></app-process>
@@ -40,6 +40,7 @@
             }
         </div>
         <div class="process-spec__waiting-list">
+            <h4>📰 IO</h4>
             @for (item of waitingProcesses; track item) {
                 <app-process [color]="item.color"></app-process>
             }

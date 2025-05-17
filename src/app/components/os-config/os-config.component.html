@@ -13,8 +13,7 @@
     </div>
 
     <div class="os-config__item">
-        <mat-form-field>
-            <mat-label>Algorithm</mat-label>
+        <mat-form-field appearance="outline">
             <mat-select [(ngModel)]="algorithm" (ngModelChange)="algChanged($event)">
                 <mat-option [value]="1">FIFO</mat-option>
                 <mat-option [value]="2">SJF</mat-option>
