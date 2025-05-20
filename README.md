@@ -1,5 +1,5 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-blue)
-![DOTNET](https://img.shields.io/badge/Angular-17-red)
+![Angular](https://img.shields.io/badge/Angular-17-red)
 
 # Angular Process Simulator
 
